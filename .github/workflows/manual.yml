@@ -1,5 +1,5 @@
 name: Run Cypress Tests
-
+ 
 on:
   push:
     branches:
@@ -8,16 +8,46 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+ 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-
+ 
     steps:
       - name: Checkout the code
         uses: actions/checkout@v4
-
+ 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+ 
+      - name: Install dependencies
+        run: npm ci
+ 
+      - name: Install Cypress
+        run: npx cypress install
+ 
+      - name: Run Cypress tests with Mochawesome reporter
+        run: npx cypress run
+ 
+      - name: Upload Cypress screenshots (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+ 
+      - name: Upload Cypress videos (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-videos
+          path: cypress/videos
+ 
+      - name: Upload Mochawesome Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: reports
