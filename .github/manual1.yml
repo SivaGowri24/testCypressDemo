@@ -1,3 +1,4 @@
+# test
 name: Run Cypress Tests
 on:
   push:
