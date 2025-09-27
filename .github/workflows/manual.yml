@@ -24,12 +24,15 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: testCypressDemo
 
       - name: Install Cypress
         run: npx cypress install
+        working-directory: testCypressDemo
 
       - name: Run Cypress tests with Mochawesome reporter
         run: npx cypress run
+        working-directory: testCypressDemo
 
       - name: Upload Cypress screenshots (if any)
         if: always()
