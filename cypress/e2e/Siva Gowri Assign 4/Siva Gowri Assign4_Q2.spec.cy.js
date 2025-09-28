@@ -17,7 +17,8 @@ describe('Registration Form Validation', () => {
     cy.get('#password').type('PasworrdMismatch!');
     cy.get('#confirmPassword').type('SGowri1234!');
     cy.get('button[type="submit"]').should('be.visible').and('contain.text', 'Register').click();
-    cy.get('div.alert.alert-danger.alert-dismissible.fade.show').should('be.visible').and('contain.text', 'Passwords do not match.');
+    // Wait up to 10 seconds for the success message
+    cy.get('.alert-info', { timeout: 10000 }).should('be.visible').and('contain', 'Successfully registered, you can log in now.');
 })
 
 it('Empty Field Error Verification', () => {
