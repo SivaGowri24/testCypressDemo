@@ -29,7 +29,7 @@ jobs:
         run: npx cypress install
 
       - name: Run Cypress tests with Mochawesome reporter
-        run: npx cypress run --reporter mochawesome --reporter-options reportDir=reports,overwrite=false,html=false,json=true
+        run: npx cypress run --reporter-options reportDir=reports,overwrite=false,html=true,json=true
 
       - name: Upload Cypress screenshots (if any)
         if: always()
